@@ -24,17 +24,17 @@ const taskController = {
             }
     },
     updateTask: async function (req,res,next){
-        const id = Number(req.params.id);
+        const taskId = Number(req.params.id);
         try {
-            const task = await Task.findByPk(id)
+            const task = await Task.findByPk(taskId)
             // récupérer les données envoyées dans la requête post
             const taskData = {
                 name: req.body.name || task.name,
             }
             // mettre à jour le model
-            await tag.update(taskData);
+            await task.update(taskData);
             // renvoyer le model à jour
-            res.json(tag);
+            res.json(task);
         } catch (error) {
             res.status(500).json({
                 statusCode: 500,

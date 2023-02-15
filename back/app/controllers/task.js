@@ -4,7 +4,9 @@ const taskController = {
 
     listTasks: async function (req, res) {
         // Récupérer la liste des taches
-        const allTasks = await Task.findAll()
+        const allTasks = await Task.findAll({
+            order: [['id', 'ASC']]
+        })
         // Renvoyer la liste des taches en json
         res.json(allTasks);
     }

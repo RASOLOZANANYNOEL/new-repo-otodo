@@ -2,7 +2,7 @@ const app = {
     init: function () {
 
         // Ajout de données de test, supprimer ces 2 appels lorsque l'API est branchée
-        taskManager.insertTaskInHtml({
+     /*    taskManager.insertTaskInHtml({
             id: 1,
             name: 'Créer le HTML'
         });
@@ -10,7 +10,7 @@ const app = {
             id: 2,
             name: 'Créer le CSS'
         });
-
+ */
         // On charge la liste des tâches depuis l'API
         taskManager.fetchAndInsertTasksFromApi();
 
@@ -22,3 +22,7 @@ const app = {
 };
 
 document.addEventListener('DOMContentLoaded', app.init);
+
+
+     
+ 

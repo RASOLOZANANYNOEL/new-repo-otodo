@@ -11,7 +11,7 @@ const taskController = {
         res.json(allTasks);
     },
 
-    createTask: async function (req,res,next){
+    createTask: async function (req,res){
         const name = req.body.name;
         try {
             const task = await Task.create({name});
@@ -23,8 +23,20 @@ const taskController = {
                 })
             }
     },
-    updateTask: async function (req,res,next){
-        const taskId = Number(req.params.id);
+    updateTask: async function (req,res){
+
+        const taskId = req.params.id;
+        const task = await Task.findByPk(taskId);
+        if (! task) {
+            return res.status(404).json({ error: "Cannot find Task. Please verify the provided ID in the URL path."});
+        }
+
+        const { name } = req.body;
+        task.set({ name });
+        await task.save();
+        res.json(task);
+        
+      /*   const taskId = Number(req.params.id);
         try {
             const task = await Task.findByPk(taskId)
             // récupérer les données envoyées dans la requête post
@@ -40,8 +52,19 @@ const taskController = {
                 statusCode: 500,
                 message: "Server error",
             })
+        } */
+    },
+    
+    deleteTask: async function (req,res){
+        const taskId = req.params.id;
+        const task = await Task.findByPk(taskId);
+        if (task) {
+            await task.destroy();
         }
+        res.status(204).end();
     }
+
+
 }
 
 
